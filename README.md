@@ -6,6 +6,6 @@ Pull addresses from different sources on the internet and review them in one pla
 
 - [x] Setup basic Django CMS
 - [x] Integrate Django Scrapy Scraper 
-- [x] Setup Heroku demo
+- [ ] Setup Heroku demo
 - [ ] Make a nice frontend
 - [ ] !!! Add change address functionality !!!
