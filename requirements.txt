@@ -22,4 +22,4 @@ Pillow>=3.0
 six
 pytz
 
-scrapy-dajangoitem==1.1.1
+scrapy-djangoitem==1.1.1
