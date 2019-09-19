@@ -1,0 +1,1 @@
+web: gunicorn address_manager.wsgi

@@ -25,3 +25,5 @@ pytz
 
 Scrapy==1.6.0
 scrapy-djangoitem==1.1.1
+
+gunicorn==19.9.0
