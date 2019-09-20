@@ -13,7 +13,7 @@ class AddressWebsite(models.Model):
     scraper = models.ForeignKey(Scraper, blank=True, null=True, on_delete=models.SET_NULL)
     scraper_runtime = models.ForeignKey(SchedulerRuntime, blank=True, null=True, on_delete=models.SET_NULL)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -31,13 +31,14 @@ class Address(models.Model):
     checker_runtime = models.ForeignKey(SchedulerRuntime, blank=True, null=True, on_delete=models.SET_NULL)
     note = models.TextField(blank=True)
     
-    def __unicode__(self):
-        return self.title
+    def __str__(self):
+        return self.source
 
     def pre_delete(sender, instance, using):
         if isinstance(instance, Address):
             if instance.checker_runtime:
                 instance.checker_runtime.delete()
+
 
 class AddressItem(DjangoItem):
     django_model = Address
