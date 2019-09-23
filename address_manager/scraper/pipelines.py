@@ -1,11 +1,36 @@
 # -*- coding: utf-8 -*-
+import logging
 
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+from django.db.utils import IntegrityError
+from scrapy.exceptions import DropItem
+from dynamic_scraper.models import SchedulerRuntime
 
+class DjangoWriterPipeline(object):
 
-class ScraperPipeline(object):
     def process_item(self, item, spider):
-        return item
+      if spider.conf['DO_ACTION']: # Necessary since DDS v.0.9+
+            try:
+                item['source'] = spider.ref_object
+
+                checker_rt = SchedulerRuntime(runtime_type='C')
+                checker_rt.save()
+                item['checker_runtime'] = checker_rt
+
+                item.save()
+                spider.action_successful = True
+                dds_id_str = str(item._dds_item_page) + '-' + str(item._dds_item_id)
+                spider.struct_log("{cs}Item {id} saved to Django DB.{ce}".format(
+                    id=dds_id_str,
+                    cs=spider.bcolors['OK'],
+                    ce=spider.bcolors['ENDC']))
+
+            except IntegrityError as e:
+                spider.log(str(e), logging.ERROR)
+                spider.log(str(item._errors), logging.ERROR)
+                raise DropItem("Missing attribute.")
+      else:
+          if not item.is_valid():
+              spider.log(str(item._errors), logging.ERROR)
+              raise DropItem("Missing attribute.")
+
+      return item
