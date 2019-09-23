@@ -1,0 +1,19 @@
+[
+    {
+        "model": "address_manager.addressunitlist",
+        "pk": 1,
+        "fields": {
+            "choice": "APT"
+        }
+    },
+    {
+        "model": "address_manager.addresswebsite",
+        "pk": 1,
+        "fields": {
+            "name": "Hydro Quebec",
+            "url": "https://www.hydroquebec.com/portail/en/group/clientele/gerer-mon-compte",
+            "scraper": 1,
+            "scraper_runtime": 1
+        }
+    }
+]
