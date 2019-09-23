@@ -6,6 +6,9 @@ from scrapy_djangoitem import DjangoItem
 class AddressUnitList(models.Model):
     choice = models.CharField(max_length=150)
 
+    def __str__(self):
+        return self.choice
+
 
 class AddressWebsite(models.Model):
     name = models.CharField(max_length=200)
