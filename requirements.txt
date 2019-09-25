@@ -11,7 +11,7 @@ djangocms-video>=2.0,<2.2
 djangocms-column>=1.9
 djangocms-file>=2.2,<3.0
 djangocms-picture>=2.0,<2.2
-django-dynamic-scraper==0.13.2
+git+https://github.com/umrashrf/django-dynamic-scraper.git#egg=django-dynamic-scraper
 easy_thumbnails
 django-filer>=1.3
 Django<2.0
