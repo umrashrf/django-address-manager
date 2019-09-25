@@ -1,0 +1,49 @@
+[
+    {
+        "model": "dynamic_scraper.scraper",
+        "pk": 1,
+        "fields": {
+            "name": "Hydro Quebec",
+            "scraped_obj_class": 1,
+            "status": "M",
+            "work_status": "D",
+            "owner": "",
+            "max_items_read": null,
+            "max_items_save": null,
+            "pagination_type": "N",
+            "pagination_on_start": false,
+            "pagination_append_str": "",
+            "pagination_page_replace": "",
+            "follow_pages_url_xpath": "",
+            "follow_pages_page_xpath": "",
+            "num_pages_follow": null,
+            "last_scraper_save_alert_period": "",
+            "next_last_scraper_save_alert": "2019-09-23T19:21:20Z",
+            "last_checker_delete_alert_period": "",
+            "next_last_checker_delete_alert": "2019-09-23T19:21:20Z",
+            "comments": "",
+            "last_scraper_save": null,
+            "last_checker_delete": null
+        }
+    },
+    {
+        "model": "dynamic_scraper.requestpagetype",
+        "pk": 1,
+        "fields": {
+            "page_type": "MP",
+            "scraped_obj_attr": 1,
+            "scraper": 1,
+            "content_type": "H",
+            "render_javascript": true,
+            "request_type": "R",
+            "method": "GET",
+            "headers": "",
+            "body": "",
+            "cookies": "",
+            "meta": "{\r\n  \"username\": \"\",\r\n  \"password\": \"\"\r\n}",
+            "form_data": "",
+            "dont_filter": false,
+            "comments": ""
+        }
+    }
+]
