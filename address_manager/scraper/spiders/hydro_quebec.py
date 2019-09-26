@@ -8,7 +8,7 @@ from address_manager.models import AddressWebsite, Address, AddressItem
 
 
 class HydroQuebec(DjangoSpider):
-    
+
     name = 'hydro_quebec'
 
     def __init__(self, *args, **kwargs):
@@ -25,15 +25,20 @@ class HydroQuebec(DjangoSpider):
         try:
             headers = json.loads(self.rpt_mp.headers)
         except json.decoder.JSONDecodeError as err:
-            headers = {}    
+            headers = {}
         formdata, url, method = fill_login_form(response.url,
-                                                response.text, 
-                                                response.meta['username'], 
+                                                response.text,
+                                                response.meta['username'],
                                                 response.meta['password'])
+
+        # because following request is a new Splash request
+        response.meta.pop('splash')
+        response.meta.pop('_splash_processed')
+
         return SplashFormRequest.from_response(response,
                                                 headers=headers,
                                                 dont_filter=True,
-                                                formname='fm', 
+                                                formname='fm',
                                                 formdata=formdata,
-                                                meta=response.meta, 
+                                                meta=response.meta,
                                                 callback=super().parse)
