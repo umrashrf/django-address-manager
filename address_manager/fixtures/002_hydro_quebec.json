@@ -52,8 +52,143 @@
             "cookies": "",
             "meta": "{\r\n  \"username\": \"\",\r\n  \"password\": \"\"\r\n}",
             "form_data": "",
-            "dont_filter": false,
+            "dont_filter": true,
             "comments": ""
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 1,
+        "fields": {
+            "scraped_obj_attr": 1,
+            "scraper": 1,
+            "x_path": "//div[contains(@class, \"span9\")]/h2",
+            "reg_exp": "",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "",
+            "proc_ctxt": "",
+            "mandatory": true
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 2,
+        "fields": {
+            "scraped_obj_attr": 10,
+            "scraper": 1,
+            "x_path": "text()",
+            "reg_exp": "(?<=-).*?(?=\\s)",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "",
+            "proc_ctxt": "",
+            "mandatory": true
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 3,
+        "fields": {
+            "scraped_obj_attr": 4,
+            "scraper": 1,
+            "x_path": "text()",
+            "reg_exp": ".*?(?=[^\\s]+\\s(?=[^\\s]+\\s(?=\\w{3}\\s\\w{3}$)))",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "remove_chars",
+            "proc_ctxt": "'remove_chars': '^[^-]+-[^\\s]+\\s'",
+            "mandatory": true
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 5,
+        "fields": {
+            "scraped_obj_attr": 2,
+            "scraper": 1,
+            "x_path": "text()",
+            "reg_exp": "^[^-]+",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "",
+            "proc_ctxt": "",
+            "mandatory": true
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 6,
+        "fields": {
+            "scraped_obj_attr": 6,
+            "scraper": 1,
+            "x_path": "text()",
+            "reg_exp": "[^\\s]+\\s(?=[^\\s]+\\s(?=\\w{3}\\s\\w{3}$))",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "",
+            "proc_ctxt": "",
+            "mandatory": true
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 7,
+        "fields": {
+            "scraped_obj_attr": 7,
+            "scraper": 1,
+            "x_path": "text()",
+            "reg_exp": "[^\\s]+\\s(?=\\w{3}\\s\\w{3}$)",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "",
+            "proc_ctxt": "",
+            "mandatory": true
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 8,
+        "fields": {
+            "scraped_obj_attr": 9,
+            "scraper": 1,
+            "x_path": "text()",
+            "reg_exp": "\\w{3}\\s\\w{3}$",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "",
+            "proc_ctxt": "",
+            "mandatory": true
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 9,
+        "fields": {
+            "scraped_obj_attr": 8,
+            "scraper": 1,
+            "x_path": "text()",
+            "reg_exp": "",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "static",
+            "proc_ctxt": "'static': 'Canada'",
+            "mandatory": true
+        }
+    },
+    {
+        "model": "dynamic_scraper.scraperelem",
+        "pk": 10,
+        "fields": {
+            "scraped_obj_attr": 12,
+            "scraper": 1,
+            "x_path": "text()",
+            "reg_exp": "",
+            "request_page_type": "MP",
+            "use_default_procs": true,
+            "processors": "",
+            "proc_ctxt": "",
+            "mandatory": true
         }
     }
 ]
