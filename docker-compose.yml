@@ -3,7 +3,8 @@ version: '3'
 services:
   splash:
     image: scrapinghub/splash
-
+    networks:
+      - bridge1
   db:
     image: library/postgres:11.1-alpine
     restart: unless-stopped
@@ -27,6 +28,8 @@ services:
       - "splash"
     environment:
       - DATABASE_URL=postgres://django:django@db/django
+      - DJANGO_SETTINGS_MODULE=address_manager.settings
+      - SPLASH_URL=http://splash:8050
 
 networks:
   bridge1:

@@ -9,6 +9,11 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 BOT_NAME = 'scraper'
 
 SPIDER_MODULES = ['dynamic_scraper.spiders', 'address_manager.scraper.spiders']
@@ -93,6 +98,6 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 #HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
-SPLASH_URL = 'http://127.0.0.1:8050'
+SPLASH_URL = env('SPLASH_URL', default='http://127.0.0.1:8050')
 
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
