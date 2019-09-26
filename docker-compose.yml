@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  splash:
+    image: scrapinghub/splash
+
+  db:
+    image: library/postgres:11.1-alpine
+    restart: unless-stopped
+    networks:
+      - bridge1
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=django
+
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    networks:
+      - bridge1
+    ports:
+      - "8000:8000"
+    depends_on:
+      - "db"
+      - "splash"
+    environment:
+      - DATABASE_URL=postgres://django:django@db/django
+
+networks:
+  bridge1:
+    driver: bridge
