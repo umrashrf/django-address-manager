@@ -18,6 +18,7 @@ Django<2.0
 django-classy-tags>=0.9
 django-sekizai>=1.0
 django-mptt>0.9
+django-environ==0.4.5
 dj-database-url==0.5.0
 psycopg2-binary==2.7.7
 html5lib>=1.0.1
