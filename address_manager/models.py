@@ -24,7 +24,7 @@ class Address(models.Model):
     street_number = models.CharField(max_length=500)
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100, blank=True)
-    unit_type = models.ForeignKey(AddressUnitList, on_delete=models.CASCADE, blank=False)
+    unit_type = models.ForeignKey(AddressUnitList, on_delete=models.CASCADE, blank=True, null=True)
     unit_number = models.CharField(max_length=500, blank=True)
     city = models.CharField(max_length=250)
     state = models.CharField(max_length=250)
@@ -33,9 +33,9 @@ class Address(models.Model):
     source = models.ForeignKey(AddressWebsite, on_delete=models.CASCADE)
     checker_runtime = models.ForeignKey(SchedulerRuntime, blank=True, null=True, on_delete=models.SET_NULL)
     note = models.TextField(blank=True)
-    
+
     def __str__(self):
-        return self.source
+        return str(self.source)
 
     def pre_delete(sender, instance, using):
         if isinstance(instance, Address):
