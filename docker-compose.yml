@@ -5,6 +5,13 @@ services:
     image: scrapinghub/splash
     networks:
       - bridge1
+
+  redis:
+    image: library/redis:5.0-alpine
+    restart: unless-stopped
+    networks:
+      - bridge1
+
   db:
     image: library/postgres:11.1-alpine
     restart: unless-stopped
@@ -30,6 +37,22 @@ services:
       - DATABASE_URL=postgres://django:django@db/django
       - DJANGO_SETTINGS_MODULE=address_manager.settings
       - SPLASH_URL=http://splash:8050
+
+  celery:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: celery -A address_manager worker --app=address_manager.celery:app --loglevel=info
+    restart: unless-stopped
+    networks:
+      - bridge1
+    environment:
+      - DJANGO_SETTINGS_MODULE=address_manager.settings
+      - CELERY_BROKER_URL=redis://redis:6379/1
+    depends_on:
+      - "db"
+      - "redis"
+      - "splash"
 
 networks:
   bridge1:
