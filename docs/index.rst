@@ -17,8 +17,7 @@ Requirements:
 
     git clone https://github.com/umrashrf/django-address-manager.git
     cd django-address-manager
-    make start
-    make setup
+    make start && make setup && make logs
 
 ::
 
