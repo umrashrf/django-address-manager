@@ -25,6 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    image: umrashrf/address_manager
     restart: unless-stopped
     networks:
       - bridge1
@@ -38,21 +39,55 @@ services:
       - DJANGO_SETTINGS_MODULE=address_manager.settings
       - SPLASH_URL=http://splash:8050
 
+  scrapyd:
+    image: umrashrf/address_manager
+    command: scrapyd
+    restart: unless-stopped
+    networks:
+      - bridge1
+    environment:
+      - DATABASE_URL=postgres://django:django@db/django
+      - DJANGO_SETTINGS_MODULE=address_manager.settings
+      - SPLASH_URL=http://splash:8050
+    depends_on:
+      - "web"
+      - "splash"
+
   celery:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    command: celery -A address_manager worker --app=address_manager.celery:app --loglevel=info
+    image: umrashrf/address_manager
+    command: celery -A address_manager worker -E -l info
     restart: unless-stopped
     networks:
       - bridge1
     environment:
       - DJANGO_SETTINGS_MODULE=address_manager.settings
+      - DATABASE_URL=postgres://django:django@db/django
       - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - SPLASH_URL=http://splash:8050
     depends_on:
       - "db"
+      - "web"
       - "redis"
-      - "splash"
+      - "scrapyd"
+
+  celery_beat:
+    image: umrashrf/address_manager
+    command: celery -A address_manager beat -l info -S django
+    restart: unless-stopped
+    networks:
+      - bridge1
+    environment:
+      - DJANGO_SETTINGS_MODULE=address_manager.settings
+      - DATABASE_URL=postgres://django:django@db/django
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - SPLASH_URL=http://splash:8050
+    depends_on:
+      - "db"
+      - "web"
+      - "redis"
+      - "scrapyd"
 
 networks:
   bridge1:

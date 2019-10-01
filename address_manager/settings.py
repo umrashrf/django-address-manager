@@ -142,6 +142,8 @@ INSTALLED_APPS = [
     'djangocms_video',
     'dynamic_scraper',
     'address_manager',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 LANGUAGES = (
