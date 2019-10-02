@@ -98,6 +98,8 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 #HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
+SCRAPYD_URL = env('SCRAPYD_URL')
+
 SPLASH_URL = env('SPLASH_URL', default='http://127.0.0.1:8050')
 
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
