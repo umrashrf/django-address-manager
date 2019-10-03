@@ -15,8 +15,8 @@
         "fields": {
             "name": "Hydro Quebec",
             "scraped_obj_class": 1,
-            "status": "M",
-            "work_status": "D",
+            "status": "A",
+            "work_status": "W",
             "owner": "",
             "max_items_read": null,
             "max_items_save": null,
