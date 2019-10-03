@@ -5,6 +5,8 @@ services:
     image: scrapinghub/splash
     networks:
       - bridge1
+    ports:
+      - "8050:8050"
 
   redis:
     image: library/redis:5.0-alpine
