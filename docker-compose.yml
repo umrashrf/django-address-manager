@@ -5,11 +5,22 @@ services:
     image: scrapinghub/splash
     networks:
       - bridge1
+    ports:
+      - "8050:8050"
+
+  redis:
+    image: library/redis:5.0-alpine
+    restart: unless-stopped
+    networks:
+      - bridge1
+
   db:
     image: library/postgres:11.1-alpine
     restart: unless-stopped
     networks:
       - bridge1
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_USER=django
       - POSTGRES_PASSWORD=django
@@ -18,6 +29,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    image: umrashrf/address_manager
     restart: unless-stopped
     networks:
       - bridge1
@@ -26,10 +38,46 @@ services:
     depends_on:
       - "db"
       - "splash"
-    environment:
-      - DATABASE_URL=postgres://django:django@db/django
-      - DJANGO_SETTINGS_MODULE=address_manager.settings
-      - SPLASH_URL=http://splash:8050
+    env_file: common.env
+
+  scrapyd:
+    image: umrashrf/address_manager
+    command: scrapyd
+    restart: unless-stopped
+    networks:
+      - bridge1
+    ports:
+      - "6800:6800"
+    env_file: common.env
+    depends_on:
+      - "web"
+      - "splash"
+
+  celery:
+    image: umrashrf/address_manager
+    command: celery -A address_manager worker -E -l info
+    restart: unless-stopped
+    networks:
+      - bridge1
+    env_file: common.env
+    depends_on:
+      - "db"
+      - "web"
+      - "redis"
+      - "scrapyd"
+
+  celery_beat:
+    image: umrashrf/address_manager
+    command: celery -A address_manager beat -l info -S django
+    restart: unless-stopped
+    networks:
+      - bridge1
+    env_file: common.env
+    depends_on:
+      - "db"
+      - "web"
+      - "redis"
+      - "scrapyd"
 
 networks:
   bridge1:

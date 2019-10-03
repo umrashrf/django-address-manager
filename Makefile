@@ -1,3 +1,6 @@
+build:
+	docker-compose build
+
 start:
 	docker-compose up -d
 
@@ -14,3 +17,6 @@ stop:
 
 clean: stop
 	docker-compose rm -f
+
+reset: clean build start setup logs
+	echo 'Reset'
