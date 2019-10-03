@@ -12,7 +12,6 @@
 import environ
 
 env = environ.Env()
-environ.Env.read_env()
 
 BOT_NAME = 'scraper'
 
@@ -98,7 +97,8 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 #HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
-SCRAPYD_URL = env('SCRAPYD_URL')
+SCRAPYD_HOSTNAME = env('SCRAPYD_HOSTNAME', default='localhost')
+SCRAPYD_PORT = env('SCRAPYD_PORT', default=6800)
 
 SPLASH_URL = env('SPLASH_URL', default='http://127.0.0.1:8050')
 

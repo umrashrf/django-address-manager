@@ -17,6 +17,8 @@ services:
     restart: unless-stopped
     networks:
       - bridge1
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_USER=django
       - POSTGRES_PASSWORD=django
@@ -34,8 +36,7 @@ services:
     depends_on:
       - "db"
       - "splash"
-    env_file:
-      - .env
+    env_file: common.env
 
   scrapyd:
     image: umrashrf/address_manager
@@ -43,8 +44,9 @@ services:
     restart: unless-stopped
     networks:
       - bridge1
-    env_file:
-      - .env
+    ports:
+      - "6800:6800"
+    env_file: common.env
     depends_on:
       - "web"
       - "splash"
@@ -55,8 +57,7 @@ services:
     restart: unless-stopped
     networks:
       - bridge1
-    env_file:
-      - .env
+    env_file: common.env
     depends_on:
       - "db"
       - "web"
@@ -69,8 +70,7 @@ services:
     restart: unless-stopped
     networks:
       - bridge1
-    env_file:
-      - .env
+    env_file: common.env
     depends_on:
       - "db"
       - "web"
