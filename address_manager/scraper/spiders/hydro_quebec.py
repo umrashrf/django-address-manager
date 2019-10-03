@@ -1,4 +1,5 @@
 import json
+import logging
 
 from scrapy_splash import SplashRequest, SplashFormRequest
 from loginform import fill_login_form
@@ -11,6 +12,14 @@ class HydroQuebec(DjangoSpider):
 
     name = 'hydro_quebec'
 
+    splash_args = {
+        'html': 1,
+        'png': 1,
+        'width': 600,
+        'render_all': 1,
+        'wait': 1,
+    }
+
     def __init__(self, *args, **kwargs):
         self._set_ref_object(AddressWebsite, **kwargs)
         self.scraper = self.ref_object.scraper
@@ -22,6 +31,17 @@ class HydroQuebec(DjangoSpider):
         super().__init__(self, *args, **kwargs)
 
     def parse(self, response):
+        # because following request is a new Splash request
+        response.meta.pop('splash')
+        response.meta.pop('_splash_processed')
+
+        yield SplashRequest(response.url, self.login, endpoint='render.json',
+                            args=self.splash_args, dont_filter=True, meta=response.meta)
+
+
+    def login(self, response):
+        logging.debug('Screenshot: %s', response.data['png'])
+
         try:
             headers = json.loads(self.rpt_mp.headers)
         except json.decoder.JSONDecodeError as err:
@@ -36,9 +56,15 @@ class HydroQuebec(DjangoSpider):
         response.meta.pop('_splash_processed')
 
         return SplashFormRequest.from_response(response,
+                                                endpoint='render.json',
+                                                args=self.splash_args,
                                                 headers=headers,
                                                 dont_filter=True,
                                                 formname='fm',
                                                 formdata=formdata,
                                                 meta=response.meta,
-                                                callback=super().parse)
+                                                callback=self.after_login)
+
+    def after_login(self, response):
+        logging.debug('Screenshot: %s', response.data['png'])
+        return super().parse(response)
