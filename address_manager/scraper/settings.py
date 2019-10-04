@@ -103,3 +103,8 @@ SCRAPYD_PORT = env('SCRAPYD_PORT', default=6800)
 SPLASH_URL = env('SPLASH_URL', default='http://127.0.0.1:8050')
 
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID', default=None)
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', default=None)
+AWS_DEFAULT_REGION = env('AWS_DEFAULT_REGION', default=None)
+AWS_S3_ENDPOINT_URL = env('AWS_S3_ENDPOINT_URL', default='http://localhost:4572')
