@@ -37,6 +37,21 @@ class Address(models.Model):
     def __str__(self):
         return str(self.source)
 
+    def pretty_format(self):
+        return """<b>{}</b>: {} {}
+{}
+{} {}
+{} {}
+{}
+{}""".format(self.source, self.street_number, self.address1,
+             self.address2,
+             self.unit_type or '', self.unit_number,
+             self.city, self.state,
+             self.zipcode,
+             self.country)
+        return str(self.source)
+    pretty_format.allow_tags = True
+
     def pre_delete(sender, instance, using):
         if isinstance(instance, Address):
             if instance.checker_runtime:
