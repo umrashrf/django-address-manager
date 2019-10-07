@@ -40,7 +40,8 @@ class HydroQuebec(DjangoSpider):
 
 
     def login(self, response):
-        logging.debug('Screenshot: %s', response.data['png'])
+        logging.debug('<img src="data:image/png;base64,%s" />',
+                      response.data['png'])
 
         try:
             headers = json.loads(self.rpt_mp.headers)
@@ -66,5 +67,6 @@ class HydroQuebec(DjangoSpider):
                                                 callback=self.after_login)
 
     def after_login(self, response):
-        logging.debug('Screenshot: %s', response.data['png'])
+        logging.debug('<p><img src="data:image/png;base64,%s" /></p>',
+                      response.data['png'])
         return super().parse(response)
