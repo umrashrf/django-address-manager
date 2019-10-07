@@ -25,6 +25,8 @@ NEWSPIDER_MODULE = 'address_manager.scraper.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
+LOG_FORMAT = '<p>%(asctime)s [%(name)s] %(levelname)s: %(message)s</p>'
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
