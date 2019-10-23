@@ -8,6 +8,8 @@ Purpose
 
 Pull addresses from different sources on the internet and review them in one place. In future, modify address once and reflect in all sources.
 
+|asciinema|
+
 TO-DO
 -----
 
@@ -24,3 +26,8 @@ TO-DO
     :alt: Documentation Status
     :scale: 100%
     :target: https://django-address-manager.readthedocs.io/?badge=latest
+
+.. |asciinema| image:: https://asciinema.org/a/V0eMIlDUmsxq7nGFxLyWmlDbH.svg?autoplay=1
+    :alt: Installation Guide
+    :scale: 40%
+    :target: https://django-address-manager.readthedocs.io/
