@@ -28,6 +28,7 @@ dj-database-url==0.5.0
 psycopg2-binary==2.7.7
 html5lib>=1.0.1
 Pillow<6.0,>=5.0
+boto3==1.9.242
 six
 pytz
 
